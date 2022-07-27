@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
+:root{
+  --primary-color: whitesmoke;
+  --body-color:white;
+}
+
+body {
+  margin: 0;
+  background-color: var(--body-color) ;
+  font-family: "Poppins", sans-serif
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.Student{
+  background-color: var(--primary-color) !important;
+  margin-top: 2rem;
+}
+.form-student{
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+}
