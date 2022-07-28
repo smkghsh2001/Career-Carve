@@ -32,3 +32,8 @@ code {
   display: grid;
   grid-template-columns: 30% 40% 30%;
 }
+.table-grid{
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-left: 2rem !important;
+}
