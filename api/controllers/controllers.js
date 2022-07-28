@@ -40,16 +40,16 @@ const tryBooking = ((req, res) => {
                         db.query( `INSERT INTO bookings (mentorID, studentrName, fTime, tTime) VALUES ((SELECT mentorID from mentors WHERE mentorName='${req.body.mname}'), '${req.body.name}', '${tempFromH}:${tempFromM}:00', '${fHours_INT}:${fMin_INT}:00')` , (res,req)=>{
                             if(error) throw error;
                             else{
-                                res.status(200);
+                                //res.status(200);
                             }
                         });
-                    res.status(200);
+                    //res.status(200);
                     }
                 });
 
             
             }
-        res.status(200).json({ msg: "Slot booked successfully!"});
+        res.status(200).send({ msg: "Slot booked successfully!"});
         }
     });
 
@@ -57,19 +57,19 @@ const tryBooking = ((req, res) => {
 
 const addMentorSlot = ((req, res)=>{
     if(!(req.body.name && req.body.tto && req.body.tfrom)){
-        res.status(400).json({ msg: "missing request fields"});
+        res.status(400).send({ msg: "missing request fields"});
     }else{
         db.query(`INSERT INTO mentors (mentorName, fTime, tTime) VALUES ('${req.body.name}', '${req.body.tto}', '${req.body.tfrom}')`, function(err){
             if(err) throw err;
             else{
-                res.status(200).json({ msg: "sucessfully added to db"});
+                res.status(200).send({ msg: "sucessfully added to db"});
             }
         });
     }
 })
 
 const getMentorNames = ((req, res)=>{
-    db.query(`SELECT mentorName from mentors WHERE fTime!=tTime`, (error, result)=>{
+    db.query(`SELECT mentorName from mentors WHERE fTime!=tTime AND fTime<tTime`, (error, result)=>{
         if(error){
             res.status(400).send({ msg: "incorrect query"});
             throw error;
@@ -85,7 +85,7 @@ const getMentorNames = ((req, res)=>{
 })
 
 const getMentorTable = ((req, res)=>{
-    db.query(`SELECT * from mentors WHERE fTime!=tTime`, (error, result)=>{
+    db.query(`SELECT * from mentors WHERE fTime!=tTime AND fTime<tTime`, (error, result)=>{
         if(error){
             res.status(400).send({ msg: "incorrect query"});
             throw error;
@@ -97,7 +97,7 @@ const getMentorTable = ((req, res)=>{
 })
 
 const getBookingTable = ((req, res)=>{
-    db.query(`SELECT * from bookings`, (error, result)=>{
+    db.query(`SELECT bookings.bookingID,bookings.mentorID,bookings.studentrName,mentors.mentorName,bookings.fTime,bookings.tTime from bookings inner join mentors on bookings.mentorID=mentors.mentorID;`, (error, result)=>{
         if(error){
             res.status(400).send({ msg: "incorrect query"});
             throw error;
