@@ -32,6 +32,8 @@ export const AddMentorModal = ({ open, handleClose }) => {
       body:JSON.stringify(data)
     }).then(response=>response.json())
     .then((res)=>console.log(res));
+
+    handleClose()
     }
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="xl">
@@ -75,7 +77,7 @@ export const AddMentorModal = ({ open, handleClose }) => {
         </form>
         <DialogActions style={{marginTop:'1rem'}}>
           <button onClick={handleMentorAdd}>Add</button>
-          <button>Cancel</button>
+          <button onClick={handleClose}>Cancel</button>
         </DialogActions>
       </div>
     </Dialog>

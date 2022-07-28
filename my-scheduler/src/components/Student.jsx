@@ -22,6 +22,11 @@ const Student = () => {
       .then((data) => setMentorNames(data))
   }, [])
 
+  const handleClear=()=>{
+    setStudentName("");
+    setMentorName("");
+    setDuration("");
+  }
   const data =
   {
     "name": student_name,
@@ -39,6 +44,10 @@ const Student = () => {
       body:JSON.stringify(data)
     }).then(response=>response.json())
     .then((res)=>console.log(res));
+
+    setStudentName("");
+    setMentorName("");
+    setDuration("");
   }
   return (
     <Card className="card-style-student">
@@ -87,7 +96,7 @@ const Student = () => {
         <button onClick={handleBook}>
           Book
         </button>
-        <button>
+        <button onClick={handleClear}>
           Clear
         </button>
       </CardActions>

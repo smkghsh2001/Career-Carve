@@ -7,7 +7,7 @@ import {
   TableHead,
   TableRow,
   TableBody,
-  TableCell,TablePagination
+  TableCell, TablePagination
 } from "@mui/material";
 import { AddMentorModal } from "./AddMentorModal";
 /*const rows = [
@@ -41,8 +41,10 @@ const MentorTable = () => {
 
   return (
     <Card className="card-style-mentor">
-      <CardHeader title="Mentor Table" style={{ textAlign: 'left', marginLeft: '20px', marginBottom: '-1.5rem' }} />
-      <button style={{ marginLeft: '-25rem', marginTop: '1rem' }} onClick={() => setOpen(true)}>Add Mentor</button>
+      <div className="mentor-table-header">
+        <CardHeader title="Mentor Table" style={{ textAlign: 'left', marginLeft: '20px', marginBottom: '-1.5rem' }} />
+        <button style={{ marginLeft: '-25rem', marginTop: '1rem' }} onClick={() => setOpen(true)}>Add Mentor</button>
+      </div>
       {open && <AddMentorModal open={open} handleClose={() => setOpen(false)} />}
       <Table style={{ maxWidth: '500px' }}>
         <TableHead>
