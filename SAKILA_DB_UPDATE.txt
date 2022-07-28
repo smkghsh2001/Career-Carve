@@ -1,0 +1,25 @@
+/*I executed these two queries to make the tables in MySQL and use in my project*/
+
+DATABASE:sakila
+TABLES:mentors,bookings
+
+QUERY
+-----
+
+CREATE TABLE mentors (
+    mentorID INT AUTO_INCREMENT,
+    mentorName VARCHAR(255),
+    fTime TIME,
+    tTime TIME,
+    PRIMARY KEY (mentorID)
+);
+
+CREATE TABLE bookings (
+    bookingID INT AUTO_INCREMENT,
+    mentorID INT,
+    studentrName VARCHAR(255),
+    fTime TIME,
+    tTime TIME,
+    PRIMARY KEY (bookingID),
+    FOREIGN KEY (mentorID) REFERENCES mentors(mentorID)
+);

@@ -18,9 +18,9 @@ code {
 
 .card-style-student{
   background-color: var(--primary-color) !important;
-  margin-top: 1rem;
-  max-width: 88.5%;
-  margin-left: 4rem;
+  margin-top: 4rem;
+  max-width: 87%;
+  margin-left: 5rem;
 }
 .card-style-mentor{
   background-color: var(--primary-color) !important;
@@ -35,7 +35,7 @@ code {
 .table-grid{
   display: grid;
   grid-template-columns: auto auto;
-  margin-left: 2rem !important;
+  margin-left: 3rem !important;
 }
 .addMentorForm{
   min-width: 70vh;
