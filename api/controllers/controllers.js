@@ -17,10 +17,10 @@ const tryBooking = ((req, res) => {
             const durationMentorAval = (tHours_INT-fHours_INT)*60 + (tMin_INT-fMin_INT);
 
             if(fHours_INT>=tHours_INT){
-                res.status(400).send({ msg: "all mentor slots are full" });
+                return res.status(400).send({ msg: "all mentor slots are full" });
             }
             else if(parseInt(req.body.duration)>durationMentorAval){
-                res.status(400).send({ msg: `min remaining for ${req.body.mname} is ${durationMentorAval}`});
+                return res.status(400).send({ msg: `min remaining for ${req.body.mname} is ${durationMentorAval}`});
             }else{
                 const tempFromH = fHours_INT;
                 //console.log(tempFromH, fHours_INT);
@@ -34,6 +34,16 @@ const tryBooking = ((req, res) => {
                 }else{
                     fMin_INT = fMin_INT+parseInt(req.body.duration);
                 }
+                let cost;
+                
+                switch(parseInt(req.body.duration)){
+                    default: cost=0; break;
+                    case 30: cost=2000; break;
+                    case 45: cost=3000; break;
+                    case 60: cost=4000; break;
+                }
+
+                //res.status(200).send(cost);
                 db.query(`UPDATE mentors SET fTime = '${fHours_INT}:${fMin_INT}:00' WHERE mentorName='${req.body.mname}'`, (error, result)=>{
                     if(error) throw error;
                     else{
@@ -51,6 +61,7 @@ const tryBooking = ((req, res) => {
             }
         res.status(200).send({ msg: "Slot booked successfully!"});
         }
+    
     });
 
 })
@@ -59,7 +70,7 @@ const addMentorSlot = ((req, res)=>{
     if(!(req.body.name && req.body.tto && req.body.tfrom)){
         res.status(400).send({ msg: "missing request fields"});
     }else{
-        db.query(`INSERT INTO mentors (mentorName, fTime, tTime) VALUES ('${req.body.name}', '${req.body.tto}', '${req.body.tfrom}')`, function(err){
+        db.query(`INSERT INTO mentors (mentorName, fTime, tTime) VALUES ('${req.body.name}', '${req.body.tfrom}', '${req.body.tto}')`, function(err){
             if(err) throw err;
             else{
                 res.status(200).send({ msg: "sucessfully added to db"});
@@ -87,10 +98,10 @@ const getMentorNames = ((req, res)=>{
 const getMentorTable = ((req, res)=>{
     db.query(`SELECT * from mentors WHERE fTime!=tTime AND fTime<tTime`, (error, result)=>{
         if(error){
-            res.status(400).send({ msg: "incorrect query"});
+            return res.status(400).send({ msg: "incorrect query"});
             throw error;
         }else{
-            res.status(200).send(result);
+            return res.status(200).send(result);
         }
 
     })
