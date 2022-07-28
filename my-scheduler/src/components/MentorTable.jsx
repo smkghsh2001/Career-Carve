@@ -22,6 +22,18 @@ const MentorTable = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(3);
 
+  const [responseAdd, setResponseAdd] = React.useState([]);
+  const [modalVisible, setModalVisible] = React.useState(false);
+
+  const showModal = () => {
+    setModalVisible(true);
+    setTimeout(() => {
+      setModalVisible(false);
+    }, 3000);
+  };
+  const handleResponseAdd = (item)=>{
+    setResponseAdd(item);
+  }
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -45,7 +57,7 @@ const MentorTable = () => {
         <CardHeader title="Mentor Table" style={{ textAlign: 'left', marginLeft: '20px', marginBottom: '-1.5rem' }} />
         <button style={{ marginLeft: '-25rem', marginTop: '1rem' }} onClick={() => setOpen(true)}>Add Mentor</button>
       </div>
-      {open && <AddMentorModal open={open} handleClose={() => setOpen(false)} />}
+      {open && <AddMentorModal open={open} handleClose={() => setOpen(false)} responseAdd={responseAdd} modalVisible={modalVisible} showModal={showModal} handleResponseAdd={handleResponseAdd}/>}
       <Table style={{ maxWidth: '500px' }}>
         <TableHead>
           <TableRow>
