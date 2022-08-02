@@ -11,35 +11,12 @@ import {
   Alert,
 } from "@mui/material";
 
-//const mentor_name=["ABC","XYZ","QWERTY"];
+const mentorNames=["ABC","XYZ","QWERTY"];
 const Student = () => {
-  const [mentorNames, setMentorNames] = React.useState([]);
 
   const [student_name, setStudentName] = React.useState("");
   const [mentor_name, setMentorName] = React.useState("");
   const [duration, setDuration] = React.useState("");
-  const [response, setResponse] = React.useState([]);
-  const [modalVisible, setModalVisible] = React.useState(false);
-  const [modalVisible1, setModalVisible1] = React.useState(false);
-  const [response1, setResponse1] = React.useState([]);
-
-  const showModal = () => {
-    setModalVisible(true);
-  };
-
-  const showModal1 = () => {
-    setModalVisible(false);
-    setModalVisible1(true);
-    setTimeout(() => {
-      setModalVisible1(false);
-    }, 3000);
-  };
-
-  React.useEffect(() => {
-    fetch("http://localhost:5000/getMentorNames")
-      .then((response) => response.json())
-      .then((data) => setMentorNames(data));
-  }, []);
 
   const handleClear = () => {
     setStudentName("");
@@ -53,34 +30,9 @@ const Student = () => {
   };
   const handleBook = () => {
     console.log(JSON.stringify(data));
-    fetch("http://localhost:5000/tryBooking", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((res) => setResponse(res));
-
-    showModal();
   };
   const handleSubmit = (e) => {
-    e.preventDefault();
     console.log(JSON.stringify(data));
-    fetch("http://localhost:5000/paymentClick", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((res) => setResponse1(res));
-
-      showModal1();
   };
   return (
     <>
@@ -143,28 +95,6 @@ const Student = () => {
           <button onClick={handleClear}>Clear</button>
         </CardActions>
       </Card>
-      <Dialog open={modalVisible} maxWidth="xs">
-        <div>
-          {response.status && (
-            <>
-              <h5>
-                You will have to pay {response.payCost} for your slot booking
-              </h5>
-              <button onClick={handleSubmit}>Proceed</button>
-              <Dialog open={modalVisible1} maxWidth="xs">
-                <div>
-                  {response1.status ? (
-                    <Alert severity="success">{response1.msg}</Alert>
-                  ) : (
-                    <Alert severity="error">{response1.msg}</Alert>
-                  )}
-                </div>
-              </Dialog>
-              <button onClick={() => setModalVisible(false)}>Cancel</button>
-            </>
-          )}
-        </div>
-      </Dialog>
     </>
   );
 };

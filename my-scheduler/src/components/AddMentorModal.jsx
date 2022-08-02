@@ -15,16 +15,6 @@ export const AddMentorModal = ({ open, handleClose,modalVisible,responseAdd,hand
   const [fTime, setFtime] = React.useState(new Date());
   const [tTime, settTime] = React.useState(new Date());
 
-  // const [responseAdd, setResponseAdd] = React.useState([]);
-  // const [modalVisible, setModalVisible] = React.useState(false);
-
-  // const showModal = () => {
-  //   setModalVisible(true);
-  //   setTimeout(() => {
-  //     setModalVisible(false);
-  //   }, 3000);
-  // };
-
   const handleChange = (newValue) => {
     setFtime(newValue);
   };
@@ -55,21 +45,7 @@ export const AddMentorModal = ({ open, handleClose,modalVisible,responseAdd,hand
     ).toString(),
   };
   const handleMentorAdd = (e) => {
-    e.preventDefault();
-    //console.log(JSON.stringify(body));
-    fetch("http://localhost:5000/addMentorSlot", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => handleResponseAdd(data));
-      console.log(responseAdd)
-    //showModal();
-    handleClose();
+    console.log(JSON.stringify(data));
   };
   return (
     <>
@@ -118,17 +94,6 @@ export const AddMentorModal = ({ open, handleClose,modalVisible,responseAdd,hand
           </form>
           <DialogActions style={{ marginTop: "1rem" }}>
             <button onClick={handleMentorAdd}>Add</button>
-            {/* {modalVisible && (
-              <Dialog open={modalVisible} maxWidth="xs">
-                <div>
-                  {response.status ? (
-                    <Alert severity="success">{response.msg}</Alert>
-                  ) : (
-                    <Alert severity="error">{response.msg}</Alert>
-                  )}
-                </div>
-              </Dialog>
-            )} */}
             <button onClick={handleClose}>Cancel</button>
           </DialogActions>
         </div>
